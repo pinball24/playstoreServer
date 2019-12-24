@@ -18,22 +18,15 @@ app.get('/apps', (req, res) => {
                 .toLowerCase()
                 .includes(search.toLowerCase()))
 
-    let genresType = playstore
-            .filter(app =>
-                app
-                    .Genres
-                    .includes(genres))
-
-    if(genres) {
-        return genresType.sort
-    }
-
     if(genres) {
         if(!['Action', 'Puzzle', 'Strategy', 'Casual', 'Arcade', 'Card'].includes(genres)) {
             return res
                 .status(400)
                 .send('Genres must be one of Action, Puzzle, Strategy, Casual, Arcade, Card')
         }
+        results = results.filter(results =>
+            results.Genres.split(';').includes(genres)
+        )
     }
 
     if(sort) {
